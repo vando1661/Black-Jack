@@ -38,21 +38,51 @@ public class BlackJack {
 
     Random random = new Random();
 
+    //dealer
     Card hiddenCard;
     ArrayList<Card> dealerHand;
     int dealerSum;
     int dealerAceCount;
 
 
+    //player
+
+    ArrayList<Card> playerHand;
+    int playerSum;
+    int playerAceCount;
+
+    //window
+
+    int boardW = 660;
+    int boardH = 660;
+
+        JFrame frame = new JFrame("Black Jack");
+        JPanel gamPanel = new JPanel();
+        ImageIcon icon = new ImageIcon("C:\\Users\\vando\\Desktop\\Black-Jack\\src\\cards\\BJ.png");  
+        Image image = icon.getImage();
+
     BlackJack(){
         startGame();
+
+        frame.setVisible(true);
+        frame.setSize(boardW,boardH);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setIconImage(image);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        gamPanel.setLayout(new BorderLayout());
+        gamPanel.setBackground(new Color(85,118,68));
+        frame.add(gamPanel);
     }
 
     public void startGame() {
 
+        //deck
         buildDeck();
         shuffledeck();
 
+        //dealer
         dealerHand = new ArrayList<Card>();
         dealerSum = 0;
         dealerAceCount = 0;
@@ -71,6 +101,27 @@ public class BlackJack {
         System.out.println(dealerHand);
         System.out.println(dealerSum);
         System.out.println(dealerAceCount);
+
+        //player
+        playerHand = new ArrayList<Card>();
+        playerSum = 0;
+        playerAceCount = 0;
+
+        for (int i = 0; i < 2; i++) {
+            
+            card = deck.remove(deck.size()-1);
+            playerSum += card.getValue();
+            playerAceCount += card.isAce() ? 1 : 0;
+            playerHand.add(card);
+        }
+
+        System.out.println("PLAYER: ");
+        System.out.println(playerHand);
+        System.out.println(playerSum);
+        System.out.println(dealerAceCount);
+    
+
+
     }
 
     public void buildDeck() {
