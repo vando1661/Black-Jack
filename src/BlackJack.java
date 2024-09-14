@@ -56,10 +56,27 @@ public class BlackJack {
     int boardW = 660;
     int boardH = 660;
 
+    int cardW = 110;
+    int cardH = 154;
+
         JFrame frame = new JFrame("Black Jack");
-        JPanel gamPanel = new JPanel();
-        ImageIcon icon = new ImageIcon("C:\\Users\\vando\\Desktop\\Black-Jack\\src\\cards\\BJ.png");  
+        JPanel gamPanel = new JPanel(){
+            @Override
+            public void paintComponent(Graphics g){
+                super.paintComponent(g);
+                
+                
+                 {
+                    Image hiddenCardImg = new ImageIcon("C:\\Users\\vando\\Desktop\\Black-Jack\\src\\cards\\BACK.png").getImage();
+                    g.drawImage(hiddenCardImg, 20, 20 , cardW, cardH,null);
+                }
+            }
+        };
+        ImageIcon icon = new ImageIcon("C:/Users/vando/Desktop/Black-Jack/src/cards/BJ.png");  
         Image image = icon.getImage();
+        JPanel buttonPanel = new JPanel();
+        JButton hitButton = new JButton("Hit");
+        JButton stayButton = new JButton("Stay");
 
     BlackJack(){
         startGame();
@@ -70,10 +87,17 @@ public class BlackJack {
         frame.setResizable(false);
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
         gamPanel.setLayout(new BorderLayout());
         gamPanel.setBackground(new Color(85,118,68));
         frame.add(gamPanel);
+
+        hitButton.setFocusable(false);
+        buttonPanel.add(hitButton);
+        stayButton.setFocusable(false);
+        buttonPanel.add(stayButton);
+        frame.add(buttonPanel,BorderLayout.SOUTH);
     }
 
     public void startGame() {
