@@ -32,10 +32,13 @@ public class BlackJack {
             return value == "A";
         }
 
+        public String getImagePath(){
+            return "./cards/" + toString() + ".png";
+        }
+
     }
 
     ArrayList<Card> deck;
-
     Random random = new Random();
 
     //dealer
@@ -65,12 +68,22 @@ public class BlackJack {
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
                 
-                
-                 {
+                try{
+                {
                     Image hiddenCardImg = new ImageIcon("C:\\Users\\vando\\Desktop\\Black-Jack\\src\\cards\\BACK.png").getImage();
-                    g.drawImage(hiddenCardImg, 20, 20 , cardW, cardH,null);
+                    g.drawImage(hiddenCardImg, 30, 30 , cardW, cardH,null);
+                }
+
+                for (int i = 0; i < dealerHand.size(); i++) {
+                    Card card = dealerHand.get(i);
+                    Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
+                    g.drawImage(cardImg, cardW + 40 + (cardW + 400)*i,30 ,cardW, cardH, null);
                 }
             }
+             catch (Exception e) {
+                e.printStackTrace();
+             }
+           }
         };
         ImageIcon icon = new ImageIcon("C:/Users/vando/Desktop/Black-Jack/src/cards/BJ.png");  
         Image image = icon.getImage();
